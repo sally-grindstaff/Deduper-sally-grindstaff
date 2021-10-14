@@ -1,0 +1,4 @@
+Reference-based removal of PCR duplicates
+
+Read in UMI file (STL96.txt) and put all the UMIs in a set, closing the file when done.
+

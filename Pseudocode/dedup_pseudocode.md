@@ -1,7 +1,13 @@
 ## Reference-based removal of PCR duplicates: Pseudocode  
 ### Sally Grindstaff  
   
-**The problem:** 
+**The problem:** Many library preparation protocols for sequencing, including Illumina protocols, require PCR amplification of fragments in order to create enough input for sequencing. PCR does not amplify all types of sequences in an equal manner; variables like length and GC content cause some sequences to be amplified more than others. Sometimes, multiple fragments that were PCR-amplified from the same template get read during sequencing. This becomes a problem when we want to use the number of copies of a sequence in order to make inferences about the biology of our sample. For example, let's say we want to use counts of RNA-seq reads mapping to features in order to draw conclusions about gene expression. If our reads include PCR duplicates and we count all of them, then our counts may reflect PCR bias more than they reflect true biological differences in gene expression. In order to reflect the biology of our original sample as best as possible, we can remove PCR duplicates after aligning reads to a reference genome or transcriptome.  
+  
+**Example files**  
+Input file: https://github.com/sally-grindstaff/Deduper-sally-grindstaff/blob/master/Pseudocode/test_input.sam  
+Output file: https://github.com/sally-grindstaff/Deduper-sally-grindstaff/blob/master/Pseudocode/test_output.sam  
+  
+**Pseudocode:**
 
 read in UMI file (STL96.txt) and put UMI sequences in a set, close UMI file
 
@@ -22,7 +28,7 @@ loop through input file line by line
     if no, add umi as a key to the dictionary and add pos as value of that key and write line to output file
  close input and output files
   
- functions:
+ **Functions:**
  
  def adjust_start_pos(start_pos: str, CIGAR: str) -> str:
     # takes two strings (start position and CIGAR string) and returns string of adjusted start position, which is the position where the read starts actually aligning

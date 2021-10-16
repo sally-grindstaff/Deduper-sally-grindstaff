@@ -8,7 +8,7 @@ Input file: https://github.com/sally-grindstaff/Deduper-sally-grindstaff/blob/ma
 Output file: https://github.com/sally-grindstaff/Deduper-sally-grindstaff/blob/master/Pseudocode/test_output.sam  
   
 **Pseudocode:**
-
+```
 read in UMI file (STL96.txt) and put UMI sequences in a set, close UMI file
 
 open coordinate-sorted input SAM file for reading
@@ -21,15 +21,17 @@ loop through input file line by line
   call get_strand function on index 1 (bitwise flag) of list
   call make_str function on adj_start_pos, strand, and index 2 (chromosome) of list and assign output to a variable called pos
   call get_UMI function on index 0 (QNAME) of list and assign output to variable called umi
-  check whether umi is already a key in the dictionary
-    if yes, check whether pos is a value of that key
-      if yes, go to beginning of loop
-      if no, add pos as value under that key and write line to output file
-    if no, add umi as a key to the dictionary and add pos as value of that key and write line to output file
+  check whether umi is in the UMI set
+    if no, go to next line of file
+    if yes, check whether umi is already a key in read_info_dict
+      if no, add umi as a key to the dictionary and add pos as value of that key and write line to output file
+      if yes, check whether pos is a value of that key
+        if yes, go to beginning of loop
+        if no, add pos as value under that key and write line to output file
  close input and output files
-  
- **Functions:**
- 
+```  
+ **Functions:**  
+ ```
  def adjust_start_pos(start_pos: str, CIGAR: str) -> str:
     # takes two strings (start position and CIGAR string) and returns string of adjusted start position, which is the position where the read starts actually aligning
     convert start_pos to int
@@ -66,3 +68,4 @@ def get_UMI(qname:str) -> str:
     
 get_UMI(NS10050:001100:AATTCCGG)
   returns AATTCCGG
+```
